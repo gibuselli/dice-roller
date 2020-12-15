@@ -1,9 +1,9 @@
 import random
 
 # Função que chama o game
-def dice_roller():  
+def init_game():  
   total_numbers_list = []  
-  sides = init_game()
+  sides = choose_dice_sides()
   roll = True
   roll_the_dice(roll, sides, total_numbers_list)
 
@@ -12,8 +12,16 @@ def result(sides):
   dice = random.randint(1, sides)
   return dice
 
+# Gera lista de todos os números sorteados
+def list_results(list):
+  rodada = 0
+  print("Números Sorteados:")
+  while(rodada < len(list)):
+    print(f"{rodada+1}ª: {str(list[rodada]).strip('[]')} | Total: {sum(list[rodada])}")
+    rodada += 1
+
 # Verifica se o usuário quer jogar e escolher o número de lados do dado
-def init_game():
+def choose_dice_sides():
   roll = False
   print("==================================")
   print("Bem-vindo ao lançador de dados!")  
@@ -53,8 +61,8 @@ def roll_the_dice(roll, sides, total_numbers_list):
       print("==================================")
     elif (action == "l"):
       print()
-      print("==================================")
-      print(f"Números rolados até agora: {total_numbers_list}")
+      print("==================================")      
+      list_results(total_numbers_list)
       print("==================================")
     elif (action == "d"):
       print()
@@ -65,8 +73,11 @@ def roll_the_dice(roll, sides, total_numbers_list):
         sides = input('Escolha o número de lados do dado: ').strip()
       sides = int(sides)
       print("==================================")
-    elif (action == ""):
+    elif (action == ""):      
       dices_amount = input("Quantos dados serão jogados? ").strip()
+      while (not dices_amount.isdigit()):
+        print("Tentativa inválida!")
+        dices_amount = input('Quantos dados serão jogados? ').strip()
       dices_amount = int(dices_amount)
       round_numbers_list = []      
       for x in range(dices_amount):        
@@ -85,4 +96,4 @@ def roll_the_dice(roll, sides, total_numbers_list):
       print("==================================")
 
 
-dice_roller()
+init_game()
